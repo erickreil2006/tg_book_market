@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: book-market-bot
+    env: python
+    plan: free
+    branch: main
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python book_market_bot.py"
