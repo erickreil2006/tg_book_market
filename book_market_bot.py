@@ -93,7 +93,7 @@ def save_listing(listing):
 def get_latest_listings(limit=5, offset=0):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM listings WHERE status IN ('approved','pending') ORDER BY id DESC LIMIT ? OFFSET %s", (limit, offset))
+    cur.execute("SELECT * FROM listings WHERE status IN ('approved','pending') ORDER BY id DESC LIMIT ? OFFSET ?", (limit, offset))
     rows = cur.fetchall()
     conn.close()
     return rows
