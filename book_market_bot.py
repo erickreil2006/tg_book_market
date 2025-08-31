@@ -93,7 +93,7 @@ def save_listing(listing):
 def get_latest_listings(limit=5, offset=0):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM listings WHERE status IN ('approved','pending') ORDER BY id DESC LIMIT %s OFFSET %s", (limit, offset))
+    cur.execute("SELECT * FROM listings WHERE status IN ('approved','pending') ORDER BY id DESC LIMIT ? OFFSET %s", (limit, offset))
     rows = cur.fetchall()
     conn.close()
     return rows
@@ -101,7 +101,7 @@ def get_latest_listings(limit=5, offset=0):
 def get_listing_by_id(listing_id):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM listings WHERE id = %s", (listing_id,))
+    cur.execute("SELECT * FROM listings WHERE id = ?", (listing_id,))
     row = cur.fetchone()
     conn.close()
     return row
@@ -109,7 +109,7 @@ def get_listing_by_id(listing_id):
 def get_user_listings(user_id):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM listings WHERE user_id = %s ORDER BY id DESC", (user_id,))
+    cur.execute("SELECT * FROM listings WHERE user_id = ? ORDER BY id DESC", (user_id,))
     rows = cur.fetchall()
     conn.close()
     return rows
@@ -117,7 +117,7 @@ def get_user_listings(user_id):
 def set_listing_status(listing_id, status):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("UPDATE listings SET status = %s WHERE id = %s", (status, listing_id))
+    cur.execute("UPDATE listings SET status = ? WHERE id = ?", (status, listing_id))
     conn.commit()
     conn.close()
 
